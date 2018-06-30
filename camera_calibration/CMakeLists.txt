@@ -14,7 +14,8 @@ add_executable(camera_calibration
     "cameracalibrator.h"
     "cameracalibrator.cpp"
     "timer.hpp"
-    "qml.qrc")
+    "qml.qrc"
+    )
 
 target_compile_features(camera_calibration PRIVATE cxx_std_17)
 

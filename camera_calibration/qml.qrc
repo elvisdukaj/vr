@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>ValidateImage.qml</file>
+        <file>AcquisitionImage.qml</file>
     </qresource>
 </RCC>

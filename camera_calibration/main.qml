@@ -1,7 +1,5 @@
-import QtQuick 2.10
+import QtQuick.Controls 2.2
 import QtQuick.Window 2.10
-import QtMultimedia 5.9
-import com.elvis.ar 1.0
 
 Window {
     visible: true
@@ -9,29 +7,41 @@ Window {
     height: 480
     title: qsTr("Camera Calibration")
 
-    Camera {
-        id: camera
-    }
+    SwipeView {
+        id: swipeView
+        anchors.fill: parent
 
-    CameraCalibrationFilter {
-        id: cameraCalibrationFilter
-        onChessboardFound:
-        {
-//            smallImg.source = image
+        Page {
+            AcquisitionImage {
+                id: acquisition;
+                anchors.fill:  parent
+
+                camera.imageCapture.onImageCaptured:
+                {
+                    console.debug("image captured");
+                    candidateImage.source = preview;
+                    swipeView.setCurrentIndex(1);
+                }
+            }
         }
-    }
 
-    VideoOutput {
-        source: camera
+        Page {
+            ValidateImage {
+                id: candidateImage
+                anchors.fill: parent
 
-        filters: [cameraCalibrationFilter]
-    }
+                camera: acquisition.camera
 
-    Image {
-        id: smallImg
-        width: 100;
-        height: 100
-        anchors.right: parent.left
-        anchors.bottom: parent.bottom
+                onAccepted: {
+                    swipeView.setCurrentIndex(0);
+                    acquisition.activateFilter();
+                }
+
+                onRejected: {
+                    swipeView.setCurrentIndex(0);
+                    acquisition.activateFilter();
+                }
+            }
+        }
     }
 }

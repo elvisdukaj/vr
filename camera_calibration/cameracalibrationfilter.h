@@ -13,7 +13,7 @@ public:
     QVideoFilterRunnable* createFilterRunnable() override;
 
 signals:
-    void chessboardFound(const QImage& image);
+    void chessboardFound();
     void calibrationCompleted();
 
     friend class CameraCalibrationRunnable;

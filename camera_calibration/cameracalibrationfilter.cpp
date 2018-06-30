@@ -65,9 +65,10 @@ QVideoFrame CameraCalibrationRunnable::run(QVideoFrame* frame, const QVideoSurfa
 
     if (m_calibrator.findChessboard(*mat))
     {
-        const auto chessboard = m_calibrator.lastChessboardImage();
-        QImage img{chessboard.data, chessboard.cols, chessboard.rows, QImage::Format_RGB32};
-        emit m_filter.chessboardFound(img);
+//        const auto chessboard = m_calibrator.lastChessboardImage();
+//        QImage img{chessboard.data, chessboard.cols, chessboard.rows, QImage::Format_RGB32};
+//        emit m_filter.chessboardFound(img);
+        emit m_filter.chessboardFound();
     }
 
     frame->unmap();

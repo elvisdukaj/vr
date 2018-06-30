@@ -13,33 +13,34 @@ bool CameraCalibrator::findChessboard(const cv::Mat& image)
 
     if (cv::findChessboardCorners(image, m_boardSize, m_lastCorners, cv::CALIB_CB_FAST_CHECK))
     {
-        cv::Mat grayscale;
-        cv::cvtColor(image, grayscale, cv::COLOR_RGBA2GRAY);
+        return true;
+//        cv::Mat grayscale;
+//        cv::cvtColor(image, grayscale, cv::COLOR_RGBA2GRAY);
 
-        cv::cornerSubPix(
-                    grayscale, m_lastCorners, cv::Size{11, 11},
-                    cv::Size(-1, -1),
-                    cv::TermCriteria{
-                        CV_TERMCRIT_EPS + CV_TERMCRIT_ITER,
-                        300, 0.01}
-                    );
+//        cv::cornerSubPix(
+//                    grayscale, m_lastCorners, cv::Size{11, 11},
+//                    cv::Size(-1, -1),
+//                    cv::TermCriteria{
+//                        CV_TERMCRIT_EPS + CV_TERMCRIT_ITER,
+//                        300, 0.01}
+//                    );
 
-        if (static_cast<int>(m_lastCorners.size()) == m_boardSize.area())
-        {
-            m_lastChessboardImage = image.clone();
+//        if (static_cast<int>(m_lastCorners.size()) == m_boardSize.area())
+//        {
+//            m_lastChessboardImage = image.clone();
 
-            cv::drawChessboardCorners(
-                        m_lastChessboardImage,
-                        m_boardSize,
-                        m_lastCorners,
-                        true
-                        );
+//            cv::drawChessboardCorners(
+//                        m_lastChessboardImage,
+//                        m_boardSize,
+//                        m_lastCorners,
+//                        true
+//                        );
 
-            cv::bitwise_not(m_lastChessboardImage, m_lastChessboardImage);
+//            cv::bitwise_not(m_lastChessboardImage, m_lastChessboardImage);
 
-            appendCornerPoints(m_lastCorners);
-            return true;
-        }
+//            appendCornerPoints(m_lastCorners);
+//            return true;
+//        }
     }
 
     return false;
